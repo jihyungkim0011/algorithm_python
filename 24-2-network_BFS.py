@@ -16,7 +16,7 @@ def solution(node, computers):
             while queue:
                 current = queue.popleft()
 
-                for k in range(node): # 기존에 (k, node) 로 탐색했지만,
+                for k in range(node): # 기존에 range(k, node) 로 탐색했지만,
                                       # if에서 어차피 방문한 것을 확인하므로 전체를 탐색해도 된다.
                                       # 노드 순서로 연결돼있는 것이 아니라 2에서 1로 연결될 수 있기 때문이다.
                     if visited[k] != 1 and computers[current][k] == 1:

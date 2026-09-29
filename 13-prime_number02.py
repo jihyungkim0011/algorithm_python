@@ -34,7 +34,7 @@ def input() -> list[int]:
     return [N, numbers]
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     main()
 
 # 7
