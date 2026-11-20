@@ -1,40 +1,27 @@
+from collections import defaultdict
+
+
 def solution(gems):
     answer = []
-    candidate = []
 
-    # 투포인터
-
-    # set으로 중복 거르기
-    original = set(gems)
-    count_original = len(original)
-    # print(count_original)
-    # set의 크기에 따라 윈도우 크기 결정된다. 크기 이상으로.
-    # left
-    # right
-    # 포인터 위치 설정. 곂쳐도 됨
+    need = len(set(gems))
+    gems_count = defaultdict(int)
+    # print(gems_count)
     left = 0
-    right = left + count_original
+    answer = [1, len(gems)]
 
-    while left < len(gems) - count_original:
+    for right in range(len(gems)):
+        gems_count[gems[right]] += 1
 
-        # 포인터까지 내부 set 추출
-        window_gems = set(gems[left:right])
+        while len(gems_count) == need:
+            if right - left + 1 < answer[1] - answer[0] + 1:
+                answer = [left + 1, right + 1]
 
-        # 원본가 동일한가
-        #     동일하면 출력
-        #     아니면 다음 포인터 이동
-        if len(window_gems.intersection(original)) == count_original:
-            candidate.append([left, right, right - left])
+            gems_count[gems[left]] -= 1
 
-        if right >= len(gems):
+            if gems_count[gems[left]] == 0:
+                del gems_count[gems[left]]
+
             left += 1
-            right = left + count_original
-        else:
-            right += 1
-
-    candidate = sorted(candidate, key=lambda x: x[2])
-    print(candidate)
-    answer.append(candidate[0][0] + 1)
-    answer.append(candidate[0][1])
 
     return answer
